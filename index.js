@@ -8,23 +8,22 @@ const app = express();
 const cors = require("cors");
 const PORT = process.env.Port || 8000
 
-app.use((req, res, next) => {
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Origin", "*")
-    res.setHeader("Access-Control-Allow-Origin", "*")
-})
 
 app.use(cors());
 app.use(express.static('uploads'))
 app.use(express.json())
 
+var corsOptions = {
+    origin: 'https://job-api-eosin.vercel.app/',
+    optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
+}
 
 
 
-app.use("/api/client", clientauth_route)
-app.use("/api/employer", employerauth_route)
-app.use("/api/jobs", jobs_route)
-app.use("/api/jobapplied", jobapplied_route)
+app.use("/api/client", clientauth_route, cors(corsOptions))
+app.use("/api/employer", employerauth_route, cors(corsOptions))
+app.use("/api/jobs", jobs_route, cors(corsOptions))
+app.use("/api/jobapplied", jobapplied_route, cors(corsOptions))
 
 /* 
 error - middleware
