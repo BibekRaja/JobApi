@@ -5,7 +5,16 @@ const employerauth_route = require("./route/EmployersAuth")
 const jobs_route = require("./route/Jobs")
 const jobapplied_route = require("./route/JobApplied")
 const app = express();
+const cors = require("cors");
+const PORT = process.env.Port || 8000
 
+app.use((req, res, next) => {
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "*")
+    res.setHeader("Access-Control-Allow-Origin", "*")
+})
+
+app.use(cors());
 app.use(express.static('uploads'))
 app.use(express.json())
 
@@ -50,6 +59,6 @@ app.use("", (err, req, res, next) => {
     }
 })
 
-app.listen(8000, () => {
+app.listen(PORT, () => {
     console.log("server started");
 })
