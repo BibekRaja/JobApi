@@ -23,7 +23,7 @@ const option = {
     swaggerDefinition: {
         info: {
             title: 'Job API',
-            version: '3.0.0'
+            version: '1'
         }
     },
     apis: ['swagger.js']
@@ -33,15 +33,6 @@ const swaggerDoc = swaggerJSDoc(option)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
-/**
- * @swagger:
- * /api/jobs:
- *  get:
- *      description: get all jobs
- *      responses:
- *          200:
- *              description: Success
- */
 
 app.use(cors());
 app.use(express.static('uploads'))
