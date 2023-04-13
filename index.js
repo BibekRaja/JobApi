@@ -13,8 +13,9 @@ const PORT = process.env.Port || 8000
 
 const swaggerUi = require('swagger-ui-express');
 // const fs = require("fs")
-const YAML = require('yaml');
+// const YAML = require('yaml');
 const swaggerJSDoc = require('swagger-jsdoc');
+// const swaggerDocument = require('./swagger.js')
 
 // const file = fs.readFileSync('./api.yaml', 'utf8')
 // const swaggerDocument = YAML.parse(file)
@@ -26,12 +27,9 @@ const option = {
             version: '1'
         }
     },
+
     apis: ['swagger.js']
 }
-
-const swaggerDoc = swaggerJSDoc(option)
-
-app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 
 app.use(cors());
@@ -48,6 +46,9 @@ var corsOptions = {
 
 
 
+const swaggerDoc = swaggerJSDoc(option)
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
 
 app.use("/api/client", clientauth_route, cors(corsOptions))
 app.use("/api/employer", employerauth_route, cors(corsOptions))
