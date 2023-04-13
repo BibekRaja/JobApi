@@ -3,10 +3,7 @@ const Schema = mongoose.Schema
 const ObjectId = Schema.ObjectId
 
 let EmployersSchema = new Schema({
-    id: {
-        type: Number,
-        // required: true
-    },
+
     name: {
         type: String,
         required: [true, "required"],
@@ -44,8 +41,9 @@ let EmployersSchema = new Schema({
             message: "mobile already use"
         }
     },
-    description: {
-        type: String
+    company: {
+        type: String,
+        require: true
     },
     password: {
         type: String,

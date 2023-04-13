@@ -1,4 +1,6 @@
 const express = require('express');
+
+
 require("./config/Database")
 const clientauth_route = require("./route/ClientAuth")
 const employerauth_route = require("./route/EmployersAuth")
@@ -6,17 +8,53 @@ const jobs_route = require("./route/Jobs")
 const jobapplied_route = require("./route/JobApplied")
 const app = express();
 const cors = require("cors");
+
 const PORT = process.env.Port || 8000
 
+const swaggerUi = require('swagger-ui-express');
+// const fs = require("fs")
+const YAML = require('yaml');
+const swaggerJSDoc = require('swagger-jsdoc');
+
+// const file = fs.readFileSync('./api.yaml', 'utf8')
+// const swaggerDocument = YAML.parse(file)
+
+const option = {
+    swaggerDefinition: {
+        info: {
+            title: 'Job API',
+            version: '3.0.0'
+        }
+    },
+    apis: ['swagger.js']
+}
+
+const swaggerDoc = swaggerJSDoc(option)
+
+app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
+/**
+ * @swagger:
+ * /api/jobs:
+ *  get:
+ *      description: get all jobs
+ *      responses:
+ *          200:
+ *              description: Success
+ */
 
 app.use(cors());
 app.use(express.static('uploads'))
 app.use(express.json())
 
+
 var corsOptions = {
     origin: 'https://job-api-eosin.vercel.app/',
     optionsSuccessStatus: 200 // some legacy browsers (IE11, various SmartTVs) choke on 204
 }
+
+
+
 
 
 
@@ -57,6 +95,7 @@ app.use("", (err, req, res, next) => {
         })
     }
 })
+
 
 app.listen(PORT, () => {
     console.log("server started");
