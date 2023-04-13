@@ -28,7 +28,7 @@ const option = {
         }
     },
 
-    apis: ['swagger.js']
+    apis: ['index.js']
 }
 
 
@@ -49,6 +49,26 @@ var corsOptions = {
 const swaggerDoc = swaggerJSDoc(option)
 
 app.use('/api-docs', swaggerUi.serve, swaggerUi.setup(swaggerDoc));
+
+
+/**
+ * @swagger
+ * /api/jobs:
+ *  get:
+ *      tags:
+ *          - Jobs
+ *      description: get all jobs
+ *      responses:
+ *          200:
+ *              description: Success
+ *  post:
+ *      tags:
+ *          - Jobs
+ *      description: create jobs
+ *      responses:
+ *          200:
+ *              description: Success
+ */
 
 app.use("/api/client", clientauth_route, cors(corsOptions))
 app.use("/api/employer", employerauth_route, cors(corsOptions))
